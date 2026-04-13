@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: ai-backend
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog_db?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      max-lifetime: 1800000
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: false
+        format_sql: false
+        jdbc:
+          batch_size: 25
+  
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+logging:
+  level:
+    org.springframework: WARN
+    org.hibernate: WARN
+    com.ai.backend: WARN
+    com.zaxxer.hikari: WARN
+
+cors:
+  allowed-origins:
+    - http://localhost:5173
+    - http://localhost:3000
+    - http://127.0.0.1:5173
+    - http://127.0.0.1:3000
+  allowed-methods: "*"
+  allowed-headers: "*"
+  allow-credentials: true
+  max-age: 3600
+
+file:
+  upload-path: ./uploads
+  max-size: 10MB
+
+exception:
+  handler:
+    enabled: true
